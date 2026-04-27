@@ -1,4 +1,3 @@
-# PRODUCT REQUIREMENTS DOCUMENT (PRD)
 ## WildGuard AI - Wildlife Early Warning System Website
 
 ## 1. Executive Summary
