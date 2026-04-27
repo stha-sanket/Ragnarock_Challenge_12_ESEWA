@@ -1,0 +1,394 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>WildGuard AI - Bulk Image Classifier</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;900&amp;family=Inter:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#005312",
+              "on-surface": "#1b1c1c",
+              "error-container": "#ffdad6",
+              tertiary: "#ac0c18",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#2e150b",
+              "tertiary-container": "#d02d2d",
+              secondary: "#7a5649",
+              "on-background": "#1b1c1c",
+              "surface-container-high": "#eae7e7",
+              outline: "#707a6c",
+              "inverse-surface": "#303030",
+              "surface-bright": "#fcf9f8",
+              surface: "#fcf9f8",
+              "surface-container": "#f0eded",
+              "on-error-container": "#93000a",
+              "on-primary-container": "#cbffc2",
+              "secondary-fixed-dim": "#ebbcac",
+              "surface-tint": "#1b6d24",
+              "secondary-fixed": "#ffdbcf",
+              "on-error": "#ffffff",
+              "primary-container": "#2e7d32",
+              "secondary-container": "#fdcdbc",
+              "surface-container-highest": "#e5e2e1",
+              "outline-variant": "#bfcaba",
+              primary: "#0d631b",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#f3f0ef",
+              "surface-container-low": "#f6f3f2",
+              "on-tertiary-fixed": "#410003",
+              "on-secondary-container": "#795548",
+              "surface-dim": "#dcd9d9",
+              "inverse-primary": "#88d982",
+              error: "#ba1a1a",
+              "surface-variant": "#e5e2e1",
+              "on-tertiary-fixed-variant": "#930010",
+              "on-surface-variant": "#40493d",
+              "on-primary-fixed": "#002204",
+              "tertiary-fixed": "#ffdad6",
+              "primary-fixed-dim": "#88d982",
+              background: "#fcf9f8",
+              "primary-fixed": "#a3f69c",
+              "on-tertiary-container": "#ffedeb",
+              "on-secondary-fixed-variant": "#603f33",
+              "tertiary-fixed-dim": "#ffb3ac",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              unit: "4px",
+              xs: "4px",
+              xl: "48px",
+              sm: "8px",
+              margin: "24px",
+              lg: "24px",
+              md: "16px",
+              gutter: "16px",
+            },
+            fontFamily: {
+              h3: ["Epilogue"],
+              "label-sm": ["Inter"],
+              "body-lg": ["Inter"],
+              h2: ["Epilogue"],
+              "body-md": ["Inter"],
+              "label-bold": ["Inter"],
+              h1: ["Epilogue"],
+            },
+            fontSize: {
+              h3: [
+                "24px",
+                {
+                  lineHeight: "1.3",
+                  fontWeight: "600",
+                },
+              ],
+              "label-sm": [
+                "12px",
+                {
+                  lineHeight: "1.2",
+                  fontWeight: "500",
+                },
+              ],
+              "body-lg": [
+                "18px",
+                {
+                  lineHeight: "1.6",
+                  fontWeight: "400",
+                },
+              ],
+              h2: [
+                "32px",
+                {
+                  lineHeight: "1.2",
+                  fontWeight: "600",
+                },
+              ],
+              "body-md": [
+                "16px",
+                {
+                  lineHeight: "1.5",
+                  fontWeight: "400",
+                },
+              ],
+              "label-bold": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  fontWeight: "700",
+                },
+              ],
+              h1: [
+                "40px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .material-symbols-outlined.fill-icon {
+        font-variation-settings: "FILL" 1;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background min-h-screen flex flex-col md:hidden pb-xl"
+  >
+    <!-- TopAppBar -->
+    <header
+      class="bg-white dark:bg-neutral-900 w-full top-0 border-b-2 border-neutral-200 dark:border-neutral-800 flex justify-between items-center px-6 py-3 z-50 sticky"
+    >
+      <div class="flex items-center gap-sm">
+        <button
+          aria-label="Menu"
+          class="text-green-800 dark:text-green-500 hover:bg-neutral-100 dark:hover:bg-neutral-800 active:scale-95 transition-transform p-sm rounded"
+        >
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h1
+          class="font-epilogue font-bold uppercase tracking-wider text-green-800 dark:text-green-500 text-lg font-black tracking-tighter"
+        >
+          WildGuard AI
+        </h1>
+      </div>
+      <div
+        class="h-8 w-8 rounded-full overflow-hidden border border-outline bg-surface-container-highest"
+      >
+        <img
+          alt="Ranger profile avatar"
+          class="w-full h-full object-cover"
+          data-alt="Close up portrait of a rugged forest ranger wearing a uniform hat, natural daylight"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9zpL2R4-xuvQ9xKquhWNqfW-MsuHPb2GhIXO9hu9BzEZvKaYOXfbbPI-fEVpglcLnNa4hc8WsyuU8XP14h51nPLbcsL-iTA7TF1OLnu60pMKrw6atplHINMGExrVVuEAvPw6cyGOuqp8pTkn9hZVLizvocb6pozZcVCn4g-OdQCjYolGWa5F7OJSlBQvjiwrb_2GaVKa8XZozSBX6o5YlIYk7tROWSuJFEMO49ukg7AsLa2bD-XG9kBmz32x0Ds5XgQrl5ZW8-2Y"
+        />
+      </div>
+    </header>
+    <main class="flex-1 px-margin pt-md pb-xl flex flex-col gap-lg">
+      <header>
+        <h2 class="font-h2 text-h2 text-on-surface mb-xs">
+          Bulk Image Classifier
+        </h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          Upload camera trap ZIP archives for AI processing.
+        </p>
+      </header>
+      <!-- Upload Area -->
+      <section
+        class="border-2 border-dashed border-outline-variant rounded bg-surface-container-low p-lg flex flex-col items-center justify-center text-center gap-md hover:border-primary hover:bg-surface-container transition-colors cursor-pointer min-h-[200px]"
+      >
+        <span class="material-symbols-outlined text-[48px] text-outline-variant"
+          >folder_zip</span
+        >
+        <div>
+          <p class="font-label-bold text-label-bold text-on-surface">
+            Upload ZIP file
+          </p>
+          <p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">
+            Drag &amp; drop or tap to browse
+          </p>
+        </div>
+        <p class="font-label-sm text-label-sm text-outline">Max size: 500MB</p>
+      </section>
+      <!-- Action Button -->
+      <button
+        class="bg-primary text-on-primary w-full h-xl rounded font-label-bold text-label-bold uppercase tracking-wider hover:bg-primary-container hover:text-on-primary-container active:scale-[0.98] transition-all flex items-center justify-center gap-sm"
+      >
+        <span class="material-symbols-outlined">psychology</span>
+        Process Images
+      </button>
+      <!-- Results Section -->
+      <section class="mt-md flex flex-col gap-md">
+        <h3
+          class="font-h3 text-h3 text-on-surface border-b border-outline-variant pb-sm"
+        >
+          Recent Processing Results
+        </h3>
+        <!-- Processing Item 1 -->
+        <article
+          class="bg-surface rounded border border-outline flex flex-col overflow-hidden"
+        >
+          <div
+            class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest"
+          >
+            <div>
+              <p class="font-label-bold text-label-bold text-on-surface">
+                North Ridge Trap_Oct.zip
+              </p>
+              <p class="font-label-sm text-label-sm text-on-surface-variant">
+                Processed: Today, 08:30 AM
+              </p>
+            </div>
+            <span class="material-symbols-outlined text-primary fill-icon"
+              >check_circle</span
+            >
+          </div>
+          <div class="p-md grid grid-cols-2 gap-md bg-surface-container-low">
+            <div
+              class="border-l-[4px] border-tertiary-container bg-surface-container-highest p-sm rounded-r"
+            >
+              <p
+                class="font-label-sm text-label-sm text-on-surface-variant mb-xs"
+              >
+                Wildlife Detected
+              </p>
+              <div class="flex items-baseline gap-xs">
+                <span class="font-h2 text-h2 text-on-surface">247</span>
+                <span
+                  class="font-label-sm text-label-sm text-tertiary-container font-bold"
+                  >82%</span
+                >
+              </div>
+            </div>
+            <div
+              class="border-l-[4px] border-outline-variant bg-surface-container-highest p-sm rounded-r"
+            >
+              <p
+                class="font-label-sm text-label-sm text-on-surface-variant mb-xs"
+              >
+                Non-Wildlife
+              </p>
+              <div class="flex items-baseline gap-xs">
+                <span class="font-h2 text-h2 text-on-surface">54</span>
+                <span class="font-label-sm text-label-sm text-outline font-bold"
+                  >18%</span
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="p-sm flex gap-sm bg-surface-container-lowest border-t border-outline-variant"
+          >
+            <button
+              class="flex-1 h-[40px] border-2 border-secondary text-secondary font-label-bold text-label-bold rounded flex items-center justify-center gap-xs hover:bg-secondary-container hover:border-secondary-container transition-colors"
+            >
+              <span class="material-symbols-outlined text-[18px]"
+                >download</span
+              >
+              Wildlife Only
+            </button>
+            <button
+              class="flex-1 h-[40px] bg-surface-container-high text-on-surface font-label-bold text-label-bold rounded flex items-center justify-center hover:bg-surface-container-highest transition-colors"
+            >
+              View Details
+            </button>
+          </div>
+        </article>
+        <!-- Processing Item 2 (Active/Loading) -->
+        <article
+          class="bg-surface rounded border border-outline flex flex-col overflow-hidden opacity-80"
+        >
+          <div
+            class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest"
+          >
+            <div>
+              <p class="font-label-bold text-label-bold text-on-surface">
+                Valley_Cam_Nov.zip
+              </p>
+              <p class="font-label-sm text-label-sm text-on-surface-variant">
+                Processing...
+              </p>
+            </div>
+            <span class="material-symbols-outlined text-outline animate-spin"
+              >sync</span
+            >
+          </div>
+          <div class="p-md bg-surface-container-low flex flex-col gap-sm">
+            <div class="flex justify-between items-center">
+              <span class="font-label-sm text-label-sm text-on-surface-variant"
+                >Scanning images... 45%</span
+              >
+              <span class="font-label-sm text-label-sm text-on-surface-variant"
+                >134 / 300</span
+              >
+            </div>
+            <div
+              class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden border border-outline-variant"
+            >
+              <div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <!-- BottomNavBar -->
+    <nav
+      class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-white dark:bg-neutral-900 border-t-2 border-neutral-200 dark:border-neutral-800 rounded-none"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-neutral-500 dark:text-neutral-400 px-3 py-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800 active:opacity-80 transition-opacity"
+        href="../live_dashboard_1/code.html"
+      >
+        <span class="material-symbols-outlined">dashboard</span>
+        <span class="font-epilogue text-[11px] font-bold uppercase mt-1"
+          >Dashboard</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-neutral-500 dark:text-neutral-400 px-3 py-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800 active:opacity-80 transition-opacity"
+        href="../sector_map/code.html"
+      >
+        <span class="material-symbols-outlined">map</span>
+        <span class="font-epilogue text-[11px] font-bold uppercase mt-1"
+          >Map</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center bg-green-800 dark:bg-green-700 text-white rounded-[4px] px-3 py-1.5 active:opacity-80 transition-opacity"
+        href="../bulk_classifier/code.html"
+      >
+        <span class="material-symbols-outlined">visibility</span>
+        <span class="font-epilogue text-[11px] font-bold uppercase mt-1"
+          >Classifier</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-neutral-500 dark:text-neutral-400 px-3 py-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800 active:opacity-80 transition-opacity"
+        href="../alert_history/code.html"
+      >
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="font-epilogue text-[11px] font-bold uppercase mt-1"
+          >Alerts</span
+        >
+      </a>
+    </nav>
+  </body>
+</html>

@@ -1,0 +1,501 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Alert History - WILDGUARD</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#f9f9f9",
+              "on-surface": "#1a1c1c",
+              "on-tertiary-fixed-variant": "#663d00",
+              "on-secondary-fixed": "#002203",
+              tertiary: "#7a4a00",
+              "on-surface-variant": "#40493d",
+              "on-tertiary-container": "#ffeee0",
+              secondary: "#2a6b2c",
+              "inverse-surface": "#2f3131",
+              "error-container": "#ffdad6",
+              surface: "#f9f9f9",
+              "on-tertiary-fixed": "#2b1700",
+              "on-primary": "#ffffff",
+              "secondary-fixed": "#acf4a4",
+              "primary-container": "#2e7d32",
+              error: "#ba1a1a",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#f1f1f1",
+              "on-primary-container": "#cbffc2",
+              "primary-fixed-dim": "#88d982",
+              "surface-dim": "#dadada",
+              "surface-container-high": "#e8e8e8",
+              "on-secondary-container": "#307231",
+              "surface-container-low": "#f3f3f3",
+              "tertiary-fixed": "#ffddba",
+              primary: "#0d631b",
+              "secondary-container": "#acf4a4",
+              background: "#f9f9f9",
+              "surface-tint": "#1b6d24",
+              "tertiary-container": "#9c6000",
+              "on-primary-fixed": "#002204",
+              "on-tertiary": "#ffffff",
+              outline: "#707a6c",
+              "surface-container-highest": "#e2e2e2",
+              "inverse-primary": "#88d982",
+              "on-error-container": "#93000a",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#0c5216",
+              "surface-variant": "#e2e2e2",
+              "tertiary-fixed-dim": "#ffb865",
+              "outline-variant": "#bfcaba",
+              "primary-fixed": "#a3f69c",
+              "secondary-fixed-dim": "#91d78a",
+              "on-background": "#1a1c1c",
+              "surface-container": "#eeeeee",
+              "on-error": "#ffffff",
+              "on-primary-fixed-variant": "#005312",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xs: "4px",
+              margin: "32px",
+              xl: "64px",
+              base: "8px",
+              md: "24px",
+              sm: "12px",
+              lg: "40px",
+              gutter: "24px",
+            },
+            fontFamily: {
+              "headline-xl": ["Epilogue"],
+              "body-md": ["Epilogue"],
+              "label-md": ["Epilogue"],
+              "headline-md": ["Epilogue"],
+              "body-lg": ["Epilogue"],
+              "headline-lg": ["Epilogue"],
+              "label-sm": ["Epilogue"],
+            },
+            fontSize: {
+              "headline-xl": [
+                "40px",
+                {
+                  lineHeight: "48px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  letterSpacing: "0.05em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-md": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "600" },
+              ],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "40px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "700",
+                },
+              ],
+              "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .icon-fill {
+        font-variation-settings:
+          "FILL" 1,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background min-h-screen pb-24 md:pb-0 pt-20"
+  >
+    <!-- TopAppBar -->
+    <header
+      class="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200"
+    >
+      <div class="flex justify-between items-center w-full px-8 py-4">
+        <button
+          class="text-green-800 hover:bg-gray-50 transition-colors rounded-full p-2 active:opacity-70 transition-opacity duration-200 hidden md:block"
+        >
+          <span class="material-symbols-outlined" data-icon="menu">menu</span>
+        </button>
+        <h1 class="text-xl font-black text-green-800 tracking-widest uppercase">
+          WILDGUARD
+        </h1>
+        <div
+          class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden border border-gray-300 flex-shrink-0"
+        >
+          <img
+            alt="User profile photo"
+            class="w-full h-full object-cover"
+            data-alt="professional headshot of a park ranger outdoors with soft natural lighting"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8yMWbKPHva-VUWmcy4sAgLsS1M5GTUSG3-4Q3aw9jcMq_FYD2G0BakDLGHit8rX9xVUnegAvZlEBm0r9xoAMZk2O5eW9WzALX_jmJcqBTNvEpjMcOs2PiaMbenIXz8I39qAXVrvacYDhhzUEgP0CtE8sXzoblZ7foLdqX7iYFsSAPg8ad1xj0eK0viEq8-PHWrLtZDVbKPojC5AfBAHbKgMijf8c4AKikmE6MyNIEJ0up-Zdj4lMnrUPssnvgJkDEfuj99VseKfE"
+          />
+        </div>
+      </div>
+    </header>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 md:px-margin mt-md">
+      <!-- Header & Search/Filter -->
+      <div class="mb-lg space-y-md">
+        <div>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface">
+            Alert History
+          </h2>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-xs">
+            Review past detections and resolutions.
+          </p>
+        </div>
+        <div
+          class="bg-surface-container-lowest border border-surface-variant rounded-lg p-sm flex flex-col md:flex-row gap-sm items-center"
+        >
+          <div class="relative w-full md:flex-1">
+            <span
+              class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline"
+              >search</span
+            >
+            <input
+              class="w-full pl-lg pr-sm py-sm bg-surface rounded text-body-md font-body-md border-transparent focus:border-primary focus:ring-0 transition-colors"
+              placeholder="Search alerts..."
+              type="text"
+            />
+          </div>
+          <div
+            class="flex gap-sm w-full md:w-auto overflow-x-auto pb-2 md:pb-0 scrollbar-hide"
+          >
+            <button
+              class="flex items-center gap-xs px-md py-sm bg-surface rounded border border-surface-variant text-label-md font-label-md whitespace-nowrap hover:bg-surface-container-low transition-colors"
+            >
+              <span class="material-symbols-outlined text-[18px]"
+                >calendar_today</span
+              >
+              Date Range
+            </button>
+            <button
+              class="flex items-center gap-xs px-md py-sm bg-surface rounded border border-surface-variant text-label-md font-label-md whitespace-nowrap hover:bg-surface-container-low transition-colors"
+            >
+              <span class="material-symbols-outlined text-[18px]">pets</span>
+              Animal Type
+            </button>
+            <button
+              class="flex items-center gap-xs px-md py-sm bg-surface rounded border border-surface-variant text-label-md font-label-md whitespace-nowrap hover:bg-surface-container-low transition-colors"
+            >
+              <span class="material-symbols-outlined text-[18px]"
+                >location_on</span
+              >
+              Zone
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Alert List -->
+      <div class="space-y-sm">
+        <!-- Alert Card 1 (Expanded) -->
+        <div
+          class="bg-surface-container-lowest border border-surface-variant rounded-lg overflow-hidden transition-all duration-200"
+        >
+          <div
+            class="p-md cursor-pointer hover:bg-surface-bright transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-md"
+          >
+            <div class="flex items-center gap-md">
+              <div
+                class="w-12 h-12 rounded-full bg-error-container text-error flex items-center justify-center flex-shrink-0"
+              >
+                <span class="material-symbols-outlined icon-fill">warning</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-sm mb-xs">
+                  <h3
+                    class="font-headline-md text-headline-md text-on-surface text-[20px]"
+                  >
+                    Brown Bear Detection
+                  </h3>
+                  <span
+                    class="px-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm"
+                    >Resolved</span
+                  >
+                </div>
+                <div
+                  class="flex flex-wrap items-center gap-x-md gap-y-xs text-on-surface-variant font-body-md text-[14px]"
+                >
+                  <span class="flex items-center gap-xs"
+                    ><span class="material-symbols-outlined text-[16px]"
+                      >schedule</span
+                    >
+                    Today, 08:42 AM</span
+                  >
+                  <span class="flex items-center gap-xs"
+                    ><span class="material-symbols-outlined text-[16px]"
+                      >map</span
+                    >
+                    North Ridge, Zone 4</span
+                  >
+                </div>
+              </div>
+            </div>
+            <button
+              class="hidden sm:flex items-center justify-center w-8 h-8 rounded-full hover:bg-surface-container-low text-on-surface-variant transition-colors"
+            >
+              <span
+                class="material-symbols-outlined transition-transform duration-200 rotate-180"
+                >expand_more</span
+              >
+            </button>
+          </div>
+          <!-- Expanded Content -->
+          <div
+            class="px-md pb-md border-t border-surface-variant pt-md bg-surface-bright"
+          >
+            <div class="flex flex-col md:flex-row gap-md">
+              <div
+                class="w-full md:w-1/3 aspect-video bg-surface-variant rounded overflow-hidden"
+              >
+                <img
+                  alt="Camera capture"
+                  class="w-full h-full object-cover grayscale opacity-80"
+                  data-alt="night vision trail camera black and white image of a brown bear walking through dense forest underbrush"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVpAwjxE3-VYBk55L-HnospZMTpsi9QZrUWH80Z8QZttzHNrZR70DDMBYiIcmkDWQfvgRCjMC_WQn-GaVcfNFr87NSfmBfvamtzYZGSolczN_z7vLuX8ps9oPsgqW86bnlTSuh4GRh_MaozkBu-tOw0jQSrSIZ-u1QMycHQ5Y9288o4es6JmFORVWJhOPNO88Eplnm7IeC8OrgNmgcsogkweRpA-FkyRZi66FBLm_5bftPdCrAxhy9_aRk875khZBC5VqJgsU9wLc"
+                />
+              </div>
+              <div class="flex-1 space-y-sm">
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                  Motion triggered camera 4A. High confidence (92%) match for
+                  adult brown bear. Patrol team dispatched to sector 4-Alpha at
+                  08:45 AM. Bear successfully redirected away from main trail.
+                </p>
+                <div class="flex gap-sm">
+                  <button
+                    class="px-md py-sm bg-surface rounded border border-surface-variant text-label-md font-label-md text-on-surface hover:bg-surface-container-low transition-colors"
+                  >
+                    View Full Report
+                  </button>
+                  <button
+                    class="px-md py-sm bg-surface rounded border border-surface-variant text-label-md font-label-md text-on-surface hover:bg-surface-container-low transition-colors"
+                  >
+                    Download Image
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Alert Card 2 -->
+        <div
+          class="bg-surface-container-lowest border border-surface-variant rounded-lg overflow-hidden transition-all duration-200"
+        >
+          <div
+            class="p-md cursor-pointer hover:bg-surface-bright transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-md"
+          >
+            <div class="flex items-center gap-md">
+              <div
+                class="w-12 h-12 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center flex-shrink-0"
+              >
+                <span class="material-symbols-outlined">help</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-sm mb-xs">
+                  <h3
+                    class="font-headline-md text-headline-md text-on-surface text-[20px]"
+                  >
+                    Unknown Movement
+                  </h3>
+                  <span
+                    class="px-sm py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm"
+                    >False Positive</span
+                  >
+                </div>
+                <div
+                  class="flex flex-wrap items-center gap-x-md gap-y-xs text-on-surface-variant font-body-md text-[14px]"
+                >
+                  <span class="flex items-center gap-xs"
+                    ><span class="material-symbols-outlined text-[16px]"
+                      >schedule</span
+                    >
+                    Yesterday, 11:15 PM</span
+                  >
+                  <span class="flex items-center gap-xs"
+                    ><span class="material-symbols-outlined text-[16px]"
+                      >map</span
+                    >
+                    East Valley, Zone 2</span
+                  >
+                </div>
+              </div>
+            </div>
+            <button
+              class="hidden sm:flex items-center justify-center w-8 h-8 rounded-full hover:bg-surface-container-low text-on-surface-variant transition-colors"
+            >
+              <span
+                class="material-symbols-outlined transition-transform duration-200"
+                >expand_more</span
+              >
+            </button>
+          </div>
+        </div>
+        <!-- Alert Card 3 -->
+        <div
+          class="bg-surface-container-lowest border border-surface-variant rounded-lg overflow-hidden transition-all duration-200"
+        >
+          <div
+            class="p-md cursor-pointer hover:bg-surface-bright transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-md"
+          >
+            <div class="flex items-center gap-md">
+              <div
+                class="w-12 h-12 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center flex-shrink-0"
+              >
+                <span class="material-symbols-outlined icon-fill">pets</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-sm mb-xs">
+                  <h3
+                    class="font-headline-md text-headline-md text-on-surface text-[20px]"
+                  >
+                    Mountain Lion Sighting
+                  </h3>
+                  <span
+                    class="px-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm"
+                    >Resolved</span
+                  >
+                </div>
+                <div
+                  class="flex flex-wrap items-center gap-x-md gap-y-xs text-on-surface-variant font-body-md text-[14px]"
+                >
+                  <span class="flex items-center gap-xs"
+                    ><span class="material-symbols-outlined text-[16px]"
+                      >schedule</span
+                    >
+                    Oct 24, 04:30 AM</span
+                  >
+                  <span class="flex items-center gap-xs"
+                    ><span class="material-symbols-outlined text-[16px]"
+                      >map</span
+                    >
+                    West Perimeter, Zone 1</span
+                  >
+                </div>
+              </div>
+            </div>
+            <button
+              class="hidden sm:flex items-center justify-center w-8 h-8 rounded-full hover:bg-surface-container-low text-on-surface-variant transition-colors"
+            >
+              <span
+                class="material-symbols-outlined transition-transform duration-200"
+                >expand_more</span
+              >
+            </button>
+          </div>
+        </div>
+        <div class="flex justify-center pt-md">
+          <button
+            class="px-lg py-sm bg-surface rounded border border-surface-variant text-label-md font-label-md text-on-surface hover:bg-surface-container-low transition-colors"
+          >
+            Load More
+          </button>
+        </div>
+      </div>
+    </main>
+    <!-- BottomNavBar (Mobile) -->
+    <nav
+      class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 bg-white border-t border-gray-200 md:hidden"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-gray-400 pt-2 pb-4 hover:text-green-700 active:scale-95 transition-transform duration-150 w-1/4"
+        href="../live_dashboard_1/code.html"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="dashboard"
+          >dashboard</span
+        >
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider"
+          >Dashboard</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-gray-400 pt-2 pb-4 hover:text-green-700 active:scale-95 transition-transform duration-150 w-1/4"
+        href="../sector_map/code.html"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="map">map</span>
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider"
+          >Map</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-gray-400 pt-2 pb-4 hover:text-green-700 active:scale-95 transition-transform duration-150 w-1/4"
+        href="../bulk_classifier/code.html"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="visibility"
+          >visibility</span
+        >
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider"
+          >Classifier</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-green-800 border-t-2 border-green-800 pt-2 pb-4 hover:text-green-700 active:scale-95 transition-transform duration-150 w-1/4"
+        href="../alert_history/code.html"
+      >
+        <span
+          class="material-symbols-outlined mb-1 icon-fill"
+          data-icon="notifications"
+          >notifications</span
+        >
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider"
+          >Alerts</span
+        >
+      </a>
+    </nav>
+  </body>
+</html>

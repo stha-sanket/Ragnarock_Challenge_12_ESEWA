@@ -1,0 +1,451 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>WildGuard AI - Mobile Dashboard</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700&amp;family=Inter:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Theme Config -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#005312",
+              "on-surface": "#1b1c1c",
+              "error-container": "#ffdad6",
+              tertiary: "#ac0c18",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#2e150b",
+              "tertiary-container": "#d02d2d",
+              secondary: "#7a5649",
+              "on-background": "#1b1c1c",
+              "surface-container-high": "#eae7e7",
+              outline: "#707a6c",
+              "inverse-surface": "#303030",
+              "surface-bright": "#fcf9f8",
+              surface: "#fcf9f8",
+              "surface-container": "#f0eded",
+              "on-error-container": "#93000a",
+              "on-primary-container": "#cbffc2",
+              "secondary-fixed-dim": "#ebbcac",
+              "surface-tint": "#1b6d24",
+              "secondary-fixed": "#ffdbcf",
+              "on-error": "#ffffff",
+              "primary-container": "#2e7d32",
+              "secondary-container": "#fdcdbc",
+              "surface-container-highest": "#e5e2e1",
+              "outline-variant": "#bfcaba",
+              primary: "#0d631b",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#f3f0ef",
+              "surface-container-low": "#f6f3f2",
+              "on-tertiary-fixed": "#410003",
+              "on-secondary-container": "#795548",
+              "surface-dim": "#dcd9d9",
+              "inverse-primary": "#88d982",
+              error: "#ba1a1a",
+              "surface-variant": "#e5e2e1",
+              "on-tertiary-fixed-variant": "#930010",
+              "on-surface-variant": "#40493d",
+              "on-primary-fixed": "#002204",
+              "tertiary-fixed": "#ffdad6",
+              "primary-fixed-dim": "#88d982",
+              background: "#fcf9f8",
+              "primary-fixed": "#a3f69c",
+              "on-tertiary-container": "#ffedeb",
+              "on-secondary-fixed-variant": "#603f33",
+              "tertiary-fixed-dim": "#ffb3ac",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              unit: "4px",
+              xs: "4px",
+              xl: "48px",
+              sm: "8px",
+              margin: "24px",
+              lg: "24px",
+              md: "16px",
+              gutter: "16px",
+            },
+            fontFamily: {
+              h3: ["Epilogue"],
+              "label-sm": ["Inter"],
+              "body-lg": ["Inter"],
+              h2: ["Epilogue"],
+              "body-md": ["Inter"],
+              "label-bold": ["Inter"],
+              h1: ["Epilogue"],
+            },
+            fontSize: {
+              h3: ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              "label-sm": ["12px", { lineHeight: "1.2", fontWeight: "500" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              h2: ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-bold": ["14px", { lineHeight: "1.2", fontWeight: "700" }],
+              h1: [
+                "40px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background min-h-screen flex flex-col font-body-md text-on-background selection:bg-primary selection:text-on-primary"
+  >
+    <!-- TopAppBar Shared Component -->
+    <header
+      class="bg-white dark:bg-neutral-900 docked full-width top-0 border-b-2 border-neutral-200 dark:border-neutral-800 flex justify-between items-center w-full px-6 py-3 z-40 sticky"
+    >
+      <div
+        class="flex items-center gap-sm active:scale-95 transition-transform cursor-pointer"
+      >
+        <span
+          class="material-symbols-outlined text-green-800 dark:text-green-500"
+          >menu</span
+        >
+      </div>
+      <h1
+        class="font-epilogue font-bold uppercase tracking-wider text-lg font-black text-green-800 dark:text-green-500 tracking-tighter"
+      >
+        WildGuard AI
+      </h1>
+      <div
+        class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer active:scale-95 transition-transform"
+      >
+        <img
+          alt="Ranger profile avatar"
+          class="w-full h-full object-cover"
+          data-alt="Close up portrait of a rugged park ranger wearing a green uniform hat outdoors"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgee0WXH8VWl1f0usOZjxaZauAD3CubhcJ6SLQ89Viw2SeL96EK8tkuzQM1qN9NfG8nxTD08Kd0BaJbEfxrgapbGC3JGXrfoZC7A8aW5WwxwLRcxXBVf8Wp93zo_nLZ_rieJA8Lp0El5dtqimBVKYT1FWLkrG9Iv9vzEYf021MMQ6Cfxi-YoZdwz0jpE0OCG35InFAKI872IuGb1k_vB7H4Zc3GfgVRwrO9meJvm25cmaMGXQqSTIPcncyihpiZgyME7fyj3388pQ"
+        />
+      </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main
+      class="flex-1 overflow-y-auto px-md py-lg pb-[88px] flex flex-col gap-lg"
+    >
+      <!-- System Status Summary -->
+      <section class="grid grid-cols-2 gap-sm">
+        <div
+          class="col-span-2 bg-surface-container border-2 border-error rounded p-md flex justify-between items-center relative overflow-hidden"
+        >
+          <div class="absolute inset-0 bg-error/5"></div>
+          <div class="relative z-10 flex flex-col">
+            <h2
+              class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider"
+            >
+              Active Alerts
+            </h2>
+            <span class="font-h1 text-h1 text-error">3</span>
+          </div>
+          <span
+            class="material-symbols-outlined text-error text-[48px] relative z-10 animate-pulse"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >warning</span
+          >
+        </div>
+        <div
+          class="bg-surface-container border-2 border-outline-variant rounded p-md flex flex-col justify-between min-h-[100px]"
+        >
+          <h2
+            class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider"
+          >
+            Cameras
+          </h2>
+          <div class="flex items-baseline gap-xs">
+            <span class="font-h2 text-h2 text-on-surface">142</span>
+            <span class="font-label-sm text-label-sm text-primary font-bold"
+              >/150</span
+            >
+          </div>
+        </div>
+        <div
+          class="bg-surface-container border-2 border-outline-variant rounded p-md flex flex-col justify-between min-h-[100px]"
+        >
+          <h2
+            class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider"
+          >
+            Rangers
+          </h2>
+          <div class="flex items-baseline gap-xs">
+            <span class="font-h2 text-h2 text-on-surface">12</span>
+            <span
+              class="font-label-sm text-label-sm text-on-surface-variant font-bold"
+              >Active</span
+            >
+          </div>
+        </div>
+      </section>
+      <!-- Interactive Map (Stylized) -->
+      <section class="flex flex-col gap-sm">
+        <div class="flex items-center gap-xs">
+          <span class="material-symbols-outlined text-on-surface-variant"
+            >explore</span
+          >
+          <h2 class="font-h3 text-h3 text-on-surface uppercase tracking-tight">
+            Sector Map
+          </h2>
+        </div>
+        <div
+          class="relative w-full h-[240px] border-2 border-outline rounded-lg overflow-hidden bg-surface-variant shadow-sm"
+        >
+          <img
+            class="absolute inset-0 w-full h-full object-cover"
+            data-alt="Dark, high-contrast topographic satellite map view of rugged mountain terrain with dense forest coverage"
+            data-location="Kruger National Park"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz9hUeCiMa-8gBPgr0Yvbl9WUC8QkfuYrrRIn6_QIzLG1rBuXSf1KQjOfJDH_EHYaFIlAN2CpJf6vyu7r3yZg2SY-FMJYFSD2sTUHDMD4XAXRZ3BQMV4OKmd_8k_MGF_MquXIFvTsmOyMvqbg-ePDBfdHQYLJs68h-P0aupjF7POajfkiOWt672sCqHfwUpDW8UOwo9av5jQHfLXr5pf9Pa-QZZipldvHi95OeJ4wf6pEElTFxZYyrhNGzCo-zWZ2ntuReQ9_j6-E"
+          />
+          <div
+            class="absolute inset-0 bg-inverse-surface/85 mix-blend-multiply"
+          ></div>
+          <!-- Map UI Elements overlay -->
+          <div
+            class="absolute top-sm left-sm bg-surface-container-highest/90 border border-outline px-sm py-xs rounded"
+          >
+            <span
+              class="font-label-bold text-label-bold text-on-surface font-mono"
+              >SEC-A9</span
+            >
+          </div>
+          <!-- Green Camera Pins -->
+          <div
+            class="absolute top-1/4 left-[20%] flex flex-col items-center group cursor-pointer"
+          >
+            <span
+              class="material-symbols-outlined text-primary bg-surface rounded-full p-xs border-2 border-primary group-active:scale-90 transition-transform"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >videocam</span
+            >
+          </div>
+          <div
+            class="absolute bottom-1/3 right-[30%] flex flex-col items-center group cursor-pointer"
+          >
+            <span
+              class="material-symbols-outlined text-primary bg-surface rounded-full p-xs border-2 border-primary group-active:scale-90 transition-transform"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >videocam</span
+            >
+          </div>
+          <!-- Red Pulsing Alert Marker -->
+          <div class="absolute top-[40%] left-[60%] flex flex-col items-center">
+            <span
+              class="absolute inline-flex h-full w-full rounded-full bg-error opacity-75 animate-ping"
+            ></span>
+            <span
+              class="material-symbols-outlined text-error bg-surface rounded-full p-xs border-2 border-error relative z-10"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >crisis_alert</span
+            >
+          </div>
+        </div>
+      </section>
+      <!-- Live Alert Feed -->
+      <section class="flex flex-col gap-sm">
+        <div
+          class="flex justify-between items-end border-b-2 border-outline-variant pb-xs mb-xs"
+        >
+          <h2 class="font-h3 text-h3 text-on-surface uppercase tracking-tight">
+            Live Alert Feed
+          </h2>
+          <div class="flex items-center gap-xs">
+            <span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+            <span
+              class="font-label-bold text-label-bold text-on-surface-variant uppercase"
+              >Real-time</span
+            >
+          </div>
+        </div>
+        <!-- Alert Card 1 -->
+        <article
+          class="bg-surface-container-lowest border-l-4 border-l-error border-y-2 border-r-2 border-outline-variant rounded-r flex flex-col p-md gap-md relative overflow-hidden"
+        >
+          <div class="absolute top-0 right-0 p-sm opacity-10">
+            <span
+              class="material-symbols-outlined text-[64px]"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >pets</span
+            >
+          </div>
+          <div class="flex justify-between items-start relative z-10">
+            <div class="flex flex-col">
+              <span
+                class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-xs font-mono"
+                >Just Now</span
+              >
+              <h3 class="font-h2 text-h2 text-on-surface leading-none mb-xs">
+                Elephant
+              </h3>
+              <span
+                class="font-label-bold text-label-bold text-error uppercase tracking-widest flex items-center gap-xs"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >location_on</span
+                >
+                Zone 1
+              </span>
+            </div>
+            <div
+              class="bg-surface-container border border-outline-variant px-sm py-xs rounded flex flex-col items-end"
+            >
+              <span
+                class="font-label-sm text-label-sm text-on-surface-variant uppercase"
+                >Confidence</span
+              >
+              <span class="font-h3 text-h3 text-on-surface">98%</span>
+            </div>
+          </div>
+          <div class="relative z-10 mt-xs">
+            <button
+              class="w-full min-h-[48px] bg-primary text-on-primary font-label-bold text-label-bold uppercase tracking-wider rounded border-2 border-primary active:bg-primary-container active:text-on-primary-container transition-colors flex items-center justify-center gap-xs"
+            >
+              <span class="material-symbols-outlined text-sm"
+                >check_circle</span
+              >
+              Acknowledge
+            </button>
+          </div>
+        </article>
+        <!-- Alert Card 2 -->
+        <article
+          class="bg-surface-container-lowest border-l-4 border-l-tertiary-container border-y-2 border-r-2 border-outline-variant rounded-r flex flex-col p-md gap-md relative overflow-hidden"
+        >
+          <div class="absolute top-0 right-0 p-sm opacity-10">
+            <span
+              class="material-symbols-outlined text-[64px]"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >pets</span
+            >
+          </div>
+          <div class="flex justify-between items-start relative z-10">
+            <div class="flex flex-col">
+              <span
+                class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-xs font-mono"
+                >-04m 12s</span
+              >
+              <h3 class="font-h2 text-h2 text-on-surface leading-none mb-xs">
+                Tiger
+              </h3>
+              <span
+                class="font-label-bold text-label-bold text-tertiary-container uppercase tracking-widest flex items-center gap-xs"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >location_on</span
+                >
+                Zone 2
+              </span>
+            </div>
+            <div
+              class="bg-surface-container border border-outline-variant px-sm py-xs rounded flex flex-col items-end"
+            >
+              <span
+                class="font-label-sm text-label-sm text-on-surface-variant uppercase"
+                >Confidence</span
+              >
+              <span class="font-h3 text-h3 text-on-surface">84%</span>
+            </div>
+          </div>
+          <div class="relative z-10 mt-xs">
+            <button
+              class="w-full min-h-[48px] bg-transparent text-secondary font-label-bold text-label-bold uppercase tracking-wider rounded border-2 border-secondary active:bg-secondary-container transition-colors flex items-center justify-center gap-xs"
+            >
+              <span class="material-symbols-outlined text-sm"
+                >check_circle</span
+              >
+              Acknowledge
+            </button>
+          </div>
+        </article>
+      </section>
+    </main>
+    <!-- BottomNavBar Shared Component -->
+    <nav
+      class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-white dark:bg-neutral-900 border-t-2 rounded-none border-neutral-200 dark:border-neutral-800"
+    >
+      <!-- Active: Dashboard -->
+      <a
+        class="flex flex-col items-center justify-center bg-green-800 dark:bg-green-700 text-white rounded-[4px] px-3 py-1.5 active:opacity-80 transition-opacity min-w-[72px]"
+        href="../live_dashboard_1/code.html"
+      >
+        <span
+          class="material-symbols-outlined"
+          style="font-variation-settings: &quot;FILL&quot; 1"
+          >dashboard</span
+        >
+        <span class="font-epilogue text-[11px] font-bold uppercase mt-xs"
+          >Dashboard</span
+        >
+      </a>
+      <!-- Inactive: Map -->
+      <a
+        class="flex flex-col items-center justify-center text-neutral-500 dark:text-neutral-400 px-3 py-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800 active:opacity-80 transition-opacity min-w-[72px]"
+        href="../sector_map/code.html"
+      >
+        <span class="material-symbols-outlined">map</span>
+        <span class="font-epilogue text-[11px] font-bold uppercase mt-xs"
+          >Map</span
+        >
+      </a>
+      <!-- Inactive: Classifier -->
+      <a
+        class="flex flex-col items-center justify-center text-neutral-500 dark:text-neutral-400 px-3 py-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800 active:opacity-80 transition-opacity min-w-[72px]"
+        href="../bulk_classifier/code.html"
+      >
+        <span class="material-symbols-outlined">visibility</span>
+        <span class="font-epilogue text-[11px] font-bold uppercase mt-xs"
+          >Classifier</span
+        >
+      </a>
+      <!-- Inactive: Alerts -->
+      <a
+        class="flex flex-col items-center justify-center text-neutral-500 dark:text-neutral-400 px-3 py-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800 active:opacity-80 transition-opacity min-w-[72px] relative"
+        href="../alert_history/code.html"
+      >
+        <div class="absolute top-1 right-2 w-2 h-2 bg-error rounded-full"></div>
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="font-epilogue text-[11px] font-bold uppercase mt-xs"
+          >Alerts</span
+        >
+      </a>
+    </nav>
+  </body>
+</html>

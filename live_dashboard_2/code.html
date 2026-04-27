@@ -1,0 +1,465 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>WildGuard AI - Dashboard</title>
+    <!-- Google Fonts: Epilogue -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .material-symbols-filled {
+        font-family: "Material Symbols Outlined";
+        font-variation-settings:
+          "FILL" 1,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      /* Hide scrollbar for status chips */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#f9f9f9",
+              "on-surface": "#1a1c1c",
+              "on-tertiary-fixed-variant": "#663d00",
+              "on-secondary-fixed": "#002203",
+              tertiary: "#7a4a00",
+              "on-surface-variant": "#40493d",
+              "on-tertiary-container": "#ffeee0",
+              secondary: "#2a6b2c",
+              "inverse-surface": "#2f3131",
+              "error-container": "#ffdad6",
+              surface: "#f9f9f9",
+              "on-tertiary-fixed": "#2b1700",
+              "on-primary": "#ffffff",
+              "secondary-fixed": "#acf4a4",
+              "primary-container": "#2e7d32",
+              error: "#ba1a1a",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#f1f1f1",
+              "on-primary-container": "#cbffc2",
+              "primary-fixed-dim": "#88d982",
+              "surface-dim": "#dadada",
+              "surface-container-high": "#e8e8e8",
+              "on-secondary-container": "#307231",
+              "surface-container-low": "#f3f3f3",
+              "tertiary-fixed": "#ffddba",
+              primary: "#0d631b",
+              "secondary-container": "#acf4a4",
+              background: "#f9f9f9",
+              "surface-tint": "#1b6d24",
+              "tertiary-container": "#9c6000",
+              "on-primary-fixed": "#002204",
+              "on-tertiary": "#ffffff",
+              outline: "#707a6c",
+              "surface-container-highest": "#e2e2e2",
+              "inverse-primary": "#88d982",
+              "on-error-container": "#93000a",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#0c5216",
+              "surface-variant": "#e2e2e2",
+              "tertiary-fixed-dim": "#ffb865",
+              "outline-variant": "#bfcaba",
+              "primary-fixed": "#a3f69c",
+              "secondary-fixed-dim": "#91d78a",
+              "on-background": "#1a1c1c",
+              "surface-container": "#eeeeee",
+              "on-error": "#ffffff",
+              "on-primary-fixed-variant": "#005312",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xs: "4px",
+              margin: "32px",
+              xl: "64px",
+              base: "8px",
+              md: "24px",
+              sm: "12px",
+              lg: "40px",
+              gutter: "24px",
+            },
+            fontFamily: {
+              "headline-xl": ["Epilogue"],
+              "body-md": ["Epilogue"],
+              "label-md": ["Epilogue"],
+              "headline-md": ["Epilogue"],
+              "body-lg": ["Epilogue"],
+              "headline-lg": ["Epilogue"],
+              "label-sm": ["Epilogue"],
+            },
+            fontSize: {
+              "headline-xl": [
+                "40px",
+                {
+                  lineHeight: "48px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  letterSpacing: "0.05em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-md": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "600" },
+              ],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "40px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "700",
+                },
+              ],
+              "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex flex-col"
+  >
+    <!-- TopAppBar -->
+    <header
+      class="w-full sticky top-0 z-40 border-b border-outline-variant bg-white dark:bg-gray-950 flex justify-between items-center px-8 py-4"
+    >
+      <div class="flex items-center gap-sm">
+        <button
+          class="text-green-800 dark:text-green-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors active:opacity-70 p-2 rounded-full flex items-center justify-center"
+        >
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h1
+          class="font-['Epilogue'] font-bold tracking-tight text-lg text-xl font-black text-green-800 dark:text-green-400 tracking-widest"
+        >
+          WILDGUARD
+        </h1>
+      </div>
+      <div class="flex items-center">
+        <button
+          class="hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors active:opacity-70 rounded-full w-10 h-10 overflow-hidden border border-outline-variant"
+        >
+          <img
+            alt="User profile photo"
+            class="w-full h-full object-cover"
+            data-alt="minimalist user avatar placeholder with forest green background"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnNFDiO3YiR5HBYBJ5xYL0sQytMzm0UP9T52xiF5IJqH3mO4rmg5zI-LeZjoboiX2tA2DvElVeuHsviyu2EpXG91RJab6kQB7oslcii5K1FTCVM_GOJxYj30i3UKuiPiwI0JCaK4eX6cbxzK2NeQShBbcQ4KIg5cIrJ5voxNYKz4kjD0kZq_YL5WFBuaFSoBFYE0FD80EUrqrNZGOf0ErWoVhTuGHHS0WMQMlvuvBOxRa8_yBhkseJ2PBFgDuF6eOVBPrlG8Vav34"
+          />
+        </button>
+      </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main
+      class="flex-1 w-full max-w-7xl mx-auto px-gutter py-lg pb-[120px] md:pb-lg flex flex-col gap-lg"
+    >
+      <!-- System Status Horizontal Scroll -->
+      <section class="w-full overflow-hidden">
+        <div class="flex gap-sm overflow-x-auto no-scrollbar pb-sm snap-x">
+          <div
+            class="snap-start shrink-0 flex items-center gap-xs px-md py-sm rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface"
+          >
+            <span class="material-symbols-outlined text-[18px] text-primary"
+              >videocam</span
+            >
+            <span class="font-label-sm text-label-sm">Cameras: 142/150</span>
+          </div>
+          <div
+            class="snap-start shrink-0 flex items-center gap-xs px-md py-sm rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface"
+          >
+            <span class="material-symbols-outlined text-[18px] text-primary"
+              >badge</span
+            >
+            <span class="font-label-sm text-label-sm">Rangers: 12 Active</span>
+          </div>
+          <div
+            class="snap-start shrink-0 flex items-center gap-xs px-md py-sm rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface"
+          >
+            <span class="material-symbols-outlined text-[18px] text-primary"
+              >battery_charging_full</span
+            >
+            <span class="font-label-sm text-label-sm">System Battery: 92%</span>
+          </div>
+          <div
+            class="snap-start shrink-0 flex items-center gap-xs px-md py-sm rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface"
+          >
+            <span class="material-symbols-outlined text-[18px] text-primary"
+              >wifi_tethering</span
+            >
+            <span class="font-label-sm text-label-sm">Network: Stable</span>
+          </div>
+        </div>
+      </section>
+      <!-- Bento Grid Layout -->
+      <section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+        <!-- Critical Alerts Counter Card -->
+        <article
+          class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col items-center justify-center relative overflow-hidden group"
+        >
+          <div
+            class="absolute inset-0 bg-error/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+          <div class="z-10 flex flex-col items-center gap-xs text-center">
+            <span class="material-symbols-filled text-error text-[32px] mb-sm"
+              >warning</span
+            >
+            <h2 class="font-headline-xl text-headline-xl text-error">3</h2>
+            <p
+              class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-xs"
+            >
+              Critical Alerts
+            </p>
+            <p class="font-body-md text-body-md text-outline mt-sm text-sm">
+              Requires immediate ranger attention.
+            </p>
+          </div>
+        </article>
+        <!-- Simplified Map Preview Card -->
+        <article
+          class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl flex flex-col overflow-hidden min-h-[360px] relative"
+        >
+          <div
+            class="flex justify-between items-center p-md border-b border-outline-variant bg-surface-container-lowest z-10"
+          >
+            <h3 class="font-headline-md text-headline-md text-on-surface">
+              Live Grid
+            </h3>
+            <button
+              class="flex items-center gap-xs font-label-md text-label-md text-primary hover:text-primary-fixed-dim transition-colors"
+            >
+              Expand Map
+              <span class="material-symbols-outlined text-[18px]"
+                >open_in_full</span
+              >
+            </button>
+          </div>
+          <div class="flex-1 relative w-full h-full bg-surface-dim">
+            <img
+              alt="Map view"
+              class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply"
+              data-alt="minimalist aerial view map of a vast natural reserve with subtle topographical lines and soft neutral tones"
+              data-location="Serengeti National Park"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlwWowSJWLmhARjhrwlFGxNpvzLbDeYe5P7iNc1whabsDu87KBbd4msCXB1BaHsKTYCOi-w_tGM18GKiwm-Hh2adhThag1jCyfauRyKGroYPEU6b7xjuqNguq93KUqlr0D8GUqvq8ZHcsbcM1OyyPoKJWqRB659iHW5-dJ8Q5AA7eA9R43iCZi4nu5QZm4u0BmWdbobqdu7bCSEnFuxf4VgNB0jlKHW0hAlYWDT4sslPVXkgoEeKplXodvg39Rbs_RKU4rv-krKBA"
+            />
+            <!-- Map Markers (Simulated) -->
+            <div class="absolute top-1/4 left-1/3 flex flex-col items-center">
+              <div
+                class="w-4 h-4 bg-primary rounded-full border-2 border-surface-container-lowest shadow-[0_0_0_4px_rgba(13,99,27,0.2)] animate-pulse"
+              ></div>
+            </div>
+            <div class="absolute top-1/2 left-2/3 flex flex-col items-center">
+              <div
+                class="w-4 h-4 bg-error rounded-full border-2 border-surface-container-lowest shadow-[0_0_0_4px_rgba(186,26,26,0.2)] animate-pulse"
+              ></div>
+            </div>
+            <div
+              class="absolute bottom-1/3 left-1/4 flex flex-col items-center"
+            >
+              <div
+                class="w-3 h-3 bg-secondary rounded-full border-2 border-surface-container-lowest"
+              ></div>
+            </div>
+          </div>
+        </article>
+      </section>
+      <!-- Recent Alerts Section -->
+      <section class="flex flex-col gap-md mt-margin">
+        <div class="flex justify-between items-end px-xs">
+          <h3 class="font-headline-lg text-headline-lg text-on-surface">
+            Recent Activity
+          </h3>
+          <a
+            class="font-label-md text-label-md text-primary hover:underline"
+            href="#"
+            >View All</a
+          >
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+          <!-- Alert Card 1 -->
+          <article
+            class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col sm:flex-row gap-md items-start sm:items-center"
+          >
+            <div
+              class="w-full sm:w-24 h-24 shrink-0 rounded-lg overflow-hidden border border-outline-variant"
+            >
+              <img
+                alt="Elephant detection"
+                class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                data-alt="close up surveillance style capture of an elephant walking through sparse brush, slightly desaturated high contrast"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlro9CWuitB31448aiNEYPJGAYDjGeEKEI4OAVFIU-2uFVGjlrFQV_69ffSIy3Ju1f7ioOmvtkENpbXtwrNHhcmHO6fn9Z1TPzSjr_GZsSwqoX4HA5deLvUTanGZv2ULdKH5talVDNBZEAdHrmn9-IYPmN7wZGCxhlBw610pWLr6VovSyup3xCuDlIxsS199JfswkTq53EnlirKVbKSe9_W_V-Vgtwg8WXAMKMvn5h6CZrDYceRLxGU3VlhxTJAoojWiQIc2ZqmoI"
+              />
+            </div>
+            <div class="flex-1 flex flex-col gap-xs">
+              <div class="flex items-center gap-xs">
+                <span class="w-2 h-2 bg-error rounded-full"></span>
+                <span
+                  class="font-label-sm text-label-sm text-error uppercase tracking-wider"
+                  >Sector 4</span
+                >
+                <span class="font-label-sm text-label-sm text-outline ml-auto"
+                  >2 mins ago</span
+                >
+              </div>
+              <h4
+                class="font-headline-md text-headline-md text-on-surface text-xl"
+              >
+                Elephant Herd
+              </h4>
+              <p
+                class="font-body-md text-body-md text-on-surface-variant text-sm line-clamp-1"
+              >
+                Movement detected near Northern Boundary fence.
+              </p>
+            </div>
+            <button
+              class="w-full sm:w-auto px-md py-sm bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md rounded-lg transition-colors whitespace-nowrap mt-sm sm:mt-0"
+            >
+              Acknowledge
+            </button>
+          </article>
+          <!-- Alert Card 2 -->
+          <article
+            class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col sm:flex-row gap-md items-start sm:items-center"
+          >
+            <div
+              class="w-full sm:w-24 h-24 shrink-0 rounded-lg overflow-hidden border border-outline-variant"
+            >
+              <img
+                alt="Tiger detection"
+                class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                data-alt="night vision style monochromatic green image of a tiger prowling through dense forest undergrowth"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUAu41K4-vAhkxOl6dQkN-OBKjNGwFYfLg74XsbaZQmFH89tA0gi5QYzOFCAPRncLCFOVhy4EDjYVKPZamy2IVXDDOgeJTqSBi6HjVWavxvoEe7Lcp1F0UqvHGbs0E7DkpQ4QsM6CQbFAiQchwgMK84AAb2qw6HL6HVv6UT3CGZEL9SMma4YYbIvbNZLHOCuhcR9or2j4adIy_yKzT0kHUgap8kxb507We6oE_p5FibAGN7uktScb5pAd-PS7pxgFEyT6zniAR5xM"
+              />
+            </div>
+            <div class="flex-1 flex flex-col gap-xs">
+              <div class="flex items-center gap-xs">
+                <span class="w-2 h-2 bg-error rounded-full"></span>
+                <span
+                  class="font-label-sm text-label-sm text-error uppercase tracking-wider"
+                  >Sector 7</span
+                >
+                <span class="font-label-sm text-label-sm text-outline ml-auto"
+                  >14 mins ago</span
+                >
+              </div>
+              <h4
+                class="font-headline-md text-headline-md text-on-surface text-xl"
+              >
+                Tiger Sighting
+              </h4>
+              <p
+                class="font-body-md text-body-md text-on-surface-variant text-sm line-clamp-1"
+              >
+                Lone adult moving east towards river crossing.
+              </p>
+            </div>
+            <button
+              class="w-full sm:w-auto px-md py-sm bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md rounded-lg transition-colors whitespace-nowrap mt-sm sm:mt-0"
+            >
+              Acknowledge
+            </button>
+          </article>
+        </div>
+      </section>
+    </main>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+      class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800"
+    >
+      <!-- Active Tab -->
+      <a
+        class="flex flex-col items-center justify-center text-green-800 dark:text-green-400 border-t-2 border-green-800 dark:border-green-400 pt-2 pb-4 active:scale-95 transition-transform duration-150 w-full"
+        href="../live_dashboard_1/code.html"
+      >
+        <span class="material-symbols-filled text-[24px]">dashboard</span>
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider mt-1"
+          >Dashboard</span
+        >
+      </a>
+      <!-- Inactive Tabs -->
+      <a
+        class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 pt-2 pb-4 hover:text-green-700 dark:hover:text-green-300 active:scale-95 transition-transform duration-150 w-full"
+        href="../sector_map/code.html"
+      >
+        <span class="material-symbols-outlined text-[24px]">map</span>
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider mt-1"
+          >Map</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 pt-2 pb-4 hover:text-green-700 dark:hover:text-green-300 active:scale-95 transition-transform duration-150 w-full"
+        href="../bulk_classifier/code.html"
+      >
+        <span class="material-symbols-outlined text-[24px]">visibility</span>
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider mt-1"
+          >Classifier</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 pt-2 pb-4 hover:text-green-700 dark:hover:text-green-300 active:scale-95 transition-transform duration-150 w-full"
+        href="../alert_history/code.html"
+      >
+        <span class="material-symbols-outlined text-[24px]">notifications</span>
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider mt-1"
+          >Alerts</span
+        >
+      </a>
+    </nav>
+  </body>
+</html>

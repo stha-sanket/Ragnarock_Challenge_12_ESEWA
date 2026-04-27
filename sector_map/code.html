@@ -1,0 +1,423 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>WildGuard AI - Map View</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#f9f9f9",
+              "on-surface": "#1a1c1c",
+              "on-tertiary-fixed-variant": "#663d00",
+              "on-secondary-fixed": "#002203",
+              tertiary: "#7a4a00",
+              "on-surface-variant": "#40493d",
+              "on-tertiary-container": "#ffeee0",
+              secondary: "#2a6b2c",
+              "inverse-surface": "#2f3131",
+              "error-container": "#ffdad6",
+              surface: "#f9f9f9",
+              "on-tertiary-fixed": "#2b1700",
+              "on-primary": "#ffffff",
+              "secondary-fixed": "#acf4a4",
+              "primary-container": "#2e7d32",
+              error: "#ba1a1a",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#f1f1f1",
+              "on-primary-container": "#cbffc2",
+              "primary-fixed-dim": "#88d982",
+              "surface-dim": "#dadada",
+              "surface-container-high": "#e8e8e8",
+              "on-secondary-container": "#307231",
+              "surface-container-low": "#f3f3f3",
+              "tertiary-fixed": "#ffddba",
+              primary: "#0d631b",
+              "secondary-container": "#acf4a4",
+              background: "#f9f9f9",
+              "surface-tint": "#1b6d24",
+              "tertiary-container": "#9c6000",
+              "on-primary-fixed": "#002204",
+              "on-tertiary": "#ffffff",
+              outline: "#707a6c",
+              "surface-container-highest": "#e2e2e2",
+              "inverse-primary": "#88d982",
+              "on-error-container": "#93000a",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#0c5216",
+              "surface-variant": "#e2e2e2",
+              "tertiary-fixed-dim": "#ffb865",
+              "outline-variant": "#bfcaba",
+              "primary-fixed": "#a3f69c",
+              "secondary-fixed-dim": "#91d78a",
+              "on-background": "#1a1c1c",
+              "surface-container": "#eeeeee",
+              "on-error": "#ffffff",
+              "on-primary-fixed-variant": "#005312",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xs: "4px",
+              margin: "32px",
+              xl: "64px",
+              base: "8px",
+              md: "24px",
+              sm: "12px",
+              lg: "40px",
+              gutter: "24px",
+            },
+            fontFamily: {
+              "headline-xl": ["Epilogue"],
+              "body-md": ["Epilogue"],
+              "label-md": ["Epilogue"],
+              "headline-md": ["Epilogue"],
+              "body-lg": ["Epilogue"],
+              "headline-lg": ["Epilogue"],
+              "label-sm": ["Epilogue"],
+            },
+            fontSize: {
+              "headline-xl": [
+                "40px",
+                {
+                  lineHeight: "48px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  letterSpacing: "0.05em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-md": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "600" },
+              ],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+              "headline-lg": [
+                "32px",
+                {
+                  lineHeight: "40px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "700",
+                },
+              ],
+              "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .icon-fill {
+        font-variation-settings:
+          "FILL" 1,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+
+      /* Subtle custom shadow for floating elements to avoid heavy dropshadows per design system */
+      .glass-shadow {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background h-screen w-full overflow-hidden flex flex-col font-body-md"
+  >
+    <!-- TopAppBar -->
+    <header
+      class="bg-white dark:bg-gray-950 docked full-width top-0 border-b border-gray-200 dark:border-gray-800 flat no shadows flex justify-between items-center w-full px-8 py-4 z-50"
+    >
+      <div class="flex items-center gap-sm">
+        <button
+          class="text-green-800 dark:text-green-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors active:opacity-70 transition-opacity duration-200 p-2 rounded-full flex items-center justify-center"
+        >
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h1
+          class="text-xl font-black text-green-800 dark:text-green-400 tracking-widest uppercase"
+        >
+          WILDGUARD
+        </h1>
+      </div>
+      <!-- Desktop Navigation Cluster (Hidden on Mobile) -->
+      <nav class="hidden md:flex items-center gap-lg">
+        <a
+          class="text-gray-500 dark:text-gray-400 font-['Epilogue'] font-bold tracking-tight text-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors active:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-lg"
+          href="#"
+          >Dashboard</a
+        >
+        <a
+          class="text-green-800 dark:text-green-400 font-bold font-['Epilogue'] tracking-tight text-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors active:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-lg border-b-2 border-green-800"
+          href="#"
+          >Map</a
+        >
+        <a
+          class="text-gray-500 dark:text-gray-400 font-['Epilogue'] font-bold tracking-tight text-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors active:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-lg"
+          href="#"
+          >Classifier</a
+        >
+        <a
+          class="text-gray-500 dark:text-gray-400 font-['Epilogue'] font-bold tracking-tight text-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors active:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-lg"
+          href="#"
+          >Alerts</a
+        >
+      </nav>
+      <div class="flex items-center">
+        <div
+          class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
+        >
+          <span class="material-symbols-outlined text-on-surface-variant"
+            >person</span
+          >
+        </div>
+      </div>
+    </header>
+    <!-- Main Map Container -->
+    <main class="flex-grow relative w-full h-full">
+      <!-- Map Background -->
+      <div class="absolute inset-0 bg-surface-container-low">
+        <img
+          alt="Map view"
+          class="w-full h-full object-cover opacity-60 grayscale-[30%] contrast-75"
+          data-alt="minimalist topographical map interface with light silver terrain and subtle forest green accents overlay"
+          data-location="Yellowstone National Park"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSyGTPwDGE2dSMFdUrHG7QIulAWJdSLkVskF2wkIbKq2w4OMOErnfzu_bKfuAauskt3GPifZFkU0YJ5CjrqcamxyrFV9BTdQBc0oYT_tvneq8nwDbvOgAQJ6d5UXeC_is2ASViHki5gZmg61Mt-5ohF2fOAfCuTpRXd2N8chotWtQVs81KcOnMFGkcq3BjlyQS7tz5X1eVGgWQqCsCoR3MBwpbWLiEDRK0gavQ69VA8u5-X46AiMERvHS6Y0Ddl5PIEeWb6VSYDdQ"
+        />
+      </div>
+      <!-- Camera Markers (Simulated on Map) -->
+      <div
+        class="absolute top-1/3 left-1/4 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center cursor-pointer group"
+      >
+        <div
+          class="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm"
+        >
+          <span class="material-symbols-outlined text-primary icon-fill"
+            >videocam</span
+          >
+        </div>
+      </div>
+      <div
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center cursor-pointer group z-10"
+      >
+        <!-- Active Selected Marker -->
+        <div
+          class="w-14 h-14 rounded-full bg-primary border-4 border-surface shadow-md flex items-center justify-center scale-110"
+        >
+          <span class="material-symbols-outlined text-on-primary icon-fill"
+            >videocam</span
+          >
+        </div>
+        <div
+          class="mt-1 bg-surface px-2 py-0.5 rounded text-[10px] font-bold text-primary border border-outline-variant shadow-sm"
+        >
+          SEC-A9
+        </div>
+      </div>
+      <!-- Floating Search Bar -->
+      <div
+        class="absolute top-md left-1/2 transform -translate-x-1/2 w-11/12 max-w-2xl z-20"
+      >
+        <div
+          class="bg-surface rounded-full border border-outline-variant glass-shadow flex items-center px-4 py-3"
+        >
+          <span class="material-symbols-outlined text-on-surface-variant mr-3"
+            >search</span
+          >
+          <input
+            class="bg-transparent border-none outline-none flex-grow font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:ring-0 p-0"
+            placeholder="Search Cameras or Zones"
+            type="text"
+          />
+          <button
+            class="w-8 h-8 rounded-full hover:bg-surface-container-high flex items-center justify-center transition-colors"
+          >
+            <span
+              class="material-symbols-outlined text-on-surface-variant text-[20px]"
+              >mic</span
+            >
+          </button>
+        </div>
+      </div>
+      <!-- Floating Action Buttons -->
+      <div
+        class="absolute right-md bottom-32 md:bottom-md flex flex-col gap-sm z-20"
+      >
+        <button
+          class="w-12 h-12 bg-surface rounded-full border border-outline-variant glass-shadow flex items-center justify-center text-on-surface hover:bg-surface-container-high hover:text-primary transition-colors active:scale-95"
+        >
+          <span class="material-symbols-outlined">filter_list</span>
+        </button>
+        <button
+          class="w-12 h-12 bg-surface rounded-full border border-outline-variant glass-shadow flex items-center justify-center text-on-surface hover:bg-surface-container-high hover:text-primary transition-colors active:scale-95"
+        >
+          <span class="material-symbols-outlined">my_location</span>
+        </button>
+      </div>
+      <!-- Bottom Sheet Preview (Camera SEC-A9) -->
+      <div
+        class="absolute bottom-24 md:bottom-md left-md md:left-margin w-[calc(100%-48px)] md:w-[360px] bg-surface border border-outline-variant rounded-xl p-md glass-shadow z-20"
+      >
+        <div class="flex justify-between items-start mb-sm">
+          <div>
+            <h3 class="font-headline-md text-headline-md text-on-surface">
+              SEC-A9
+            </h3>
+            <p
+              class="font-body-md text-body-md text-on-surface-variant text-sm mt-1"
+            >
+              North Ridge Trailhead
+            </p>
+          </div>
+          <button
+            class="text-on-surface-variant hover:text-on-surface transition-colors"
+          >
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div
+          class="w-full h-32 bg-surface-container-highest rounded-lg mb-4 overflow-hidden relative border border-outline-variant"
+        >
+          <img
+            alt="Camera view"
+            class="w-full h-full object-cover"
+            data-alt="wildlife camera trap view showing a forest path with dappled sunlight passing through trees"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVv8hAVhLhZAHgbnx3x79Rzg4CVxv-WetdYsaavmNjAjwUZnh1U-ILppChfiTwlyb2iNpZmmiLRq581IoNkmopfkQO_OT5p4F5kp1BUqMuhD9ewogE1XTFK_q-mDF1OxxlYtW5kk-dNqu3etxMyfhhQXs8TectFM_78TNFd8OxQPNUVPsexi9_5bXvBSciGwHSHLRKG68B2W0Mh5GzP5aFqZeZOlm1zykxeqLX62OwyoUv7HOcSmoSKJbNFQ4TiTl6Kwd-y_3IiE8"
+          />
+          <div
+            class="absolute inset-0 border border-primary/20 rounded-lg pointer-events-none"
+          ></div>
+          <div class="absolute top-2 left-2 flex gap-2">
+            <div
+              class="bg-surface/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-primary flex items-center gap-1"
+            >
+              <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+              Online
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-sm">
+          <div
+            class="flex justify-between items-center py-2 border-b border-surface-variant last:border-0"
+          >
+            <div class="flex items-center gap-2 text-on-surface-variant">
+              <span class="material-symbols-outlined text-[18px]">wifi</span>
+              <span class="font-label-sm text-label-sm">Signal Strength</span>
+            </div>
+            <span class="font-label-sm text-label-sm text-on-surface"
+              >Strong (92%)</span
+            >
+          </div>
+          <div
+            class="flex justify-between items-center py-2 border-b border-surface-variant last:border-0"
+          >
+            <div class="flex items-center gap-2 text-on-surface-variant">
+              <span class="material-symbols-outlined text-[18px]"
+                >battery_full</span
+              >
+              <span class="font-label-sm text-label-sm">Battery</span>
+            </div>
+            <span class="font-label-sm text-label-sm text-on-surface">84%</span>
+          </div>
+        </div>
+        <div class="mt-md flex gap-sm">
+          <button
+            class="flex-1 bg-surface border border-outline-variant text-primary font-label-md text-label-md py-2 px-4 rounded-lg hover:bg-surface-container-high transition-colors text-center"
+          >
+            Settings
+          </button>
+          <button
+            class="flex-1 bg-primary text-on-primary font-label-md text-label-md py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors text-center"
+          >
+            Live View
+          </button>
+        </div>
+      </div>
+    </main>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+      class="md:hidden bg-white dark:bg-gray-950 docked full-width bottom-0 border-t border-gray-200 dark:border-gray-800 flat no shadows fixed left-0 w-full z-50 flex justify-around items-center px-4"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 pt-2 pb-4 hover:text-green-700 dark:hover:text-green-300 active:scale-95 transition-transform duration-150 w-full"
+        href="../live_dashboard_1/code.html"
+      >
+        <span class="material-symbols-outlined mb-1">dashboard</span>
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider"
+          >Dashboard</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-green-800 dark:text-green-400 border-t-2 border-green-800 dark:border-green-400 pt-2 pb-4 hover:text-green-700 dark:hover:text-green-300 active:scale-95 transition-transform duration-150 w-full"
+        href="../sector_map/code.html"
+      >
+        <span class="material-symbols-outlined mb-1 icon-fill">map</span>
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider text-green-800 dark:text-green-400"
+          >Map</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 pt-2 pb-4 hover:text-green-700 dark:hover:text-green-300 active:scale-95 transition-transform duration-150 w-full"
+        href="../bulk_classifier/code.html"
+      >
+        <span class="material-symbols-outlined mb-1">visibility</span>
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider"
+          >Classifier</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 pt-2 pb-4 hover:text-green-700 dark:hover:text-green-300 active:scale-95 transition-transform duration-150 w-full"
+        href="../alert_history/code.html"
+      >
+        <span class="material-symbols-outlined mb-1">notifications</span>
+        <span
+          class="font-['Epilogue'] text-[10px] font-medium uppercase tracking-wider"
+          >Alerts</span
+        >
+      </a>
+    </nav>
+  </body>
+</html>
